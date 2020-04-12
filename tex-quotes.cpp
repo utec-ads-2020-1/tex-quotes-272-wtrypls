@@ -1,31 +1,30 @@
 #include <iostream>
 #include <string>
-#include <vector>
+
 using namespace std;
 
 int main(){
     string text;
-    bool status = true;
+    int status = 0;
     int itr = 0;
     while (getline(cin, text)){
-        string::iterator init = text.begin(), end = text.end(), i;
-        i = init;
-        while (i != end){
-            init = text.begin();
-            end = text.end();
+        string::iterator txtinit = text.begin(), txtend = text.end(), i;
+        i = txtinit;
+        while (i != txtend){
             if (*i == '\"'){
-                if(status){
+                if((status==0)||(status%2==0)){
                     *i = '`';
                     text.insert(i,'`');
-                    status = false;
                 }
                 else
                 {
                     *i = '\'';
                     text.insert(i,'\'');
-                    status = true;
                 }
-            i = init+itr; 
+            status++;
+            txtinit = text.begin();
+            txtend = text.end();
+            i = txtinit+itr; 
             }
         i++;
         itr++;
